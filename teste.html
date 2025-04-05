@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FindIt - Sistema de Itens Perdidos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366F1;
+            --primary-light: #818CF8;
+            --secondary: #10B981;
+            --dark: #1F2937;
+            --light: #F9FAFB;
+            --gray: #9CA3AF;
+            --danger: #EF4444;
+            --warning: #F59E0B;
+            --border-radius: 12px;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F3F4F6;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--primary);
+        }
+        
+        .logo i {
+            background-color: var(--primary);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-light);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--gray);
+            color: var(--dark);
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 16px;
+            color: var(--dark);
+        }
+        
+        .hero p {
+            font-size: 18px;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        /* Form Section */
+        .form-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .form-section h2 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-section h2 i {
+            color: var(--primary);
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: var(--border-radius);
+            border: 1px solid #E5E7EB;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        
+        .form-footer {
+            margin-top: 30px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+        
+        /* Item List */
+        .item-list {
+            margin-bottom: 60px;
+        }
+        
+        .item-list h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .item-list h2 i {
+            color: var(--warning);
+        }
+        
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        
+        .item-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .item-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .item-image {
+            height: 180px;
+            background-color: #E5E7EB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .item-details {
+            padding: 20px;
+        }
+        
+        .item-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .item-category {
+            display: inline-block;
+            padding: 4px 8px;
+            background-color: #EEF2FF;
+            color: var(--primary);
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        .item-location, .item-date {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 6px;
+        }
+        
+        .item-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            align-items: center;
+        }
+        
+        .item-status {
+            display: inline-block;
+            padding: 4px 8px;
+            background-color: #ECFDF5;
+            color: var(--secondary);
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .item-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #E5E7EB;
+            background-color: white;
+            color: var(--gray);
+            transition: all 0.3s;
+        }
+        
+        .btn-icon:hover {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+            
+            .form-section {
+                padding: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-search"></i>
+                <span>FindIt</span>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#">Início</a></li>
+                    <li><a href="#">Itens Perdidos</a></li>
+                    <li><a href="#">Itens Encontrados</a></li>
+                    <li><a href="#">Como Funciona</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </nav>
+            
+            <div class="user-actions">
+                <button class="btn btn-outline">Entrar</button>
+                <button class="btn btn-primary">Cadastrar</button>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="hero">
+            <h1>Perdeu algo? Encontramos juntos!</h1>
+            <p>Cadastre itens perdidos ou encontrados e ajude a comunidade a recuperar seus pertences.</p>
+            <button class="btn btn-primary">Cadastrar Item Perdido</button>
+            <button class="btn btn-outline">Ver Itens Encontrados</button>
+        </section>
+        
+        <section class="form-section">
+            <h2><i class="fas fa-clipboard-list"></i> Cadastrar Item Perdido</h2>
+            <form>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="item-name">Nome do Item</label>
+                        <input type="text" id="item-name" class="form-control" placeholder="Ex: Carteira, Celular, Chaves...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="item-category">Categoria</label>
+                        <select id="item-category" class="form-control">
+                            <option value="">Selecione uma categoria</option>
+                            <option value="electronics">Eletrônicos</option>
+                            <option value="documents">Documentos</option>
+                            <option value="accessories">Acessórios</option>
+                            <option value="clothing">Vestuário</option>
+                            <option value="others">Outros</option>
+                            <option value="eletronics">Camisas</option>
+                            <option value="acessories"> </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="">Description</label>
+                    <label for="">Base</label>
+                    <label for=""></label>
+                </div>
+                
+                <div class="form-group">
+                    <label for="item-description">Descrição</label>
+                    <textarea id="item-description" class="form-control" rows="4" placeholder="Descreva o item com o máximo de detalhes possível..."></textarea>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="item-location">Local Onde Foi Perdido</label>
+                        <input type="text" id="item-location" class="form-control" placeholder="Ex: Parque Central, Ônibus linha 123...">
+                    </div>
+                    <div class="form-group">
+
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="item-date">Data</label>
+                        <input type="date" id="item-date" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="item-image">Imagem do Item (opcional)</label>
+                    <input type="file" id="item-image" class="form-control">
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="contact-name">Seu Nome</label>
+                        <input type="text" id="contact-name" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contact-email">E-mail para Contato</label>
+                        <input type="email" id="contact-email" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contact-phone">Telefone para Contato</label>
+                        <input type="tel" id="contact-phone" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="form-footer">
+                    <button type="reset" class="btn btn-outline">Limpar</button>
+                    <button type="submit" class="btn btn-primary">Cadastrar Item</button>
+                </div>
+            </form>
+        </section>
+        
+        <section class="item-list">
+            <h2><i class="fas fa-clipboard-check"></i> Itens Recentemente Perdidos</h2>
+            
+            <div class="items-grid">
+                <div class="item-card">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/300x180" alt="Celular Samsung">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-category">Eletrônicos</div>
+                        <h3 class="item-title">Celular Samsung Galaxy S21</h3>
+                        <div class="item-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Shopping Center Norte</span>
+                        </div>
+                        <div class="item-date">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>15/03/2023</span>
+                        </div>
+                        <div class="item-footer">
+                            <div class="item-status">Perdido</div>
+                            <div class="item-actions">
+                                <button class="btn-icon" title="Ver detalhes">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn-icon" title="Entrar em contato">
+                                    <i class="fas fa-envelope"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/300x180" alt="Carteira Marrom">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-category">Acessórios</div>
+                        <h3 class="item-title">Carteira de Couro Marrom</h3>
+                        <div class="item-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Estação Sé do Metrô</span>
+                        </div>
+                        <div class="item-date">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>18/03/2023</span>
+                        </div>
+                        <div class="item-footer">
+                            <div class="item-status">Perdido</div>
+                            <div class="item-actions">
+                                <button class="btn-icon" title="Ver detalhes">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn-icon" title="Entrar em contato">
+                                    <i class="fas fa-envelope"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="item-card">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/300x180" alt="Chaves com chaveiro">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-category">Outros</div>
+                        <h3 class="item-title">Chaves com Chaveiro de Flamingo</h3>
+                        <div class="item-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Parque Ibirapuera</span>
+                        </div>
+                        <div class="item-date">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>20/03/2023</span>
+                        </div>
+                        <div class="item-footer">
+                            <div class="item-status">Encontrado</div>
+                            <div class="item-actions">
+                                <button class="btn-icon" title="Ver detalhes">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn-icon" title="Entrar em contato">
+                                    <i class="fas fa-envelope"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/300x180" alt="Óculos de grau">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-category">Acessórios</div>
+                        <h3 class="item-title">Óculos de Grau Ray-Ban</h3>
+                        <div class="item-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Restaurante Quinta do Olivardo</span>
+                        </div>
+                        <div class="item-date">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>21/03/2023</span>
+                        </div>
+                        <div class="item-footer">
+                            <div class="item-status">Perdido</div>
+                            <div class="item-actions">
+                                <button class="btn-icon" title="Ver detalhes">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn-icon" title="Entrar em contato">
+                                    <i class="fas fa-envelope"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
