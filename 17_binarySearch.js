@@ -12,8 +12,8 @@ function binarySearch(arr, target) {
     if (chute > target) {
       alto = meio - 1; // Ajusta o limite superior
     } else {
-      baixo = meio + 1; // Ajusta o limite inferior
     }
+      baixo = meio + 1; // Ajusta o limite inferior
   }
 
   return -1; // Retorna -1 se o valor não for encontrado
