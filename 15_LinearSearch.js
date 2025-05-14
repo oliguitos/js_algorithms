@@ -12,3 +12,4 @@ function linearSearch(arr, alvo) {
 }
 
 console.log(linearSearch(arra, 10));
+s

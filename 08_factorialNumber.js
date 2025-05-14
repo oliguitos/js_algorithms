@@ -11,6 +11,6 @@ function fatorial(n) {
 
   return produto;
 }
-
+s
 console.log(fatorial(4))
 console.log(fatorial(5))

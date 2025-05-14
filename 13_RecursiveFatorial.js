@@ -8,3 +8,4 @@ function fatorialRecursive(n) {
 console.log(fatorialRecursive(0)); // 1
 console.log(fatorialRecursive(1)); // 1
 console.log(fatorialRecursive(5)); // 120
+s

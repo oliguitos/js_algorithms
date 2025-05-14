@@ -12,3 +12,4 @@ return true;
 }
 
 console.log(isPowerOfTwo(3));
+s

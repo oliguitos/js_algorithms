@@ -9,3 +9,4 @@ function fiboRecursive(n){
 console.log(fiboRecursive(0))
 console.log(fiboRecursive(1))
 console.log(fiboRecursive(6))
+s

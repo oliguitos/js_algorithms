@@ -10,6 +10,6 @@ function isPrime(n) {
   return true;
 }
 
-console.log(isPrime(1));
+console.log(isPrime(1));s
 console.log(isPrime(5));
 console.log(isPrime(4));

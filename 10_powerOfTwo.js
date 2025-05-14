@@ -12,7 +12,7 @@ console.log(powerOfTwo(10));
 function noBitWise(n) {
   if (n < 1) {
   }
-  while (n > 1) {
+  while (n > 1) {s
     if (n % 2 !== 0) {
       return false;
     }
