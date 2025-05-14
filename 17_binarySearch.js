@@ -8,7 +8,7 @@ function binarySearch(arr, target) {
         if (target === arr[middleIndex]) { // se algo eh igual ao meio entao retorna o meio, que seria 4 se fosse V.
             return middleIndex;
         } else if (middleIndex < target) { // se nao, verifica se o meio eh menor ou maior que o alvo.
-            rightIndex = middleIndex; // se for menor o meio vira o fim da array
+            rightIndex = middleIndex; // se for menor o meio vira o fim da arrayf
         }
 
 
