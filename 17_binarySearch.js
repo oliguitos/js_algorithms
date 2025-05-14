@@ -1,26 +1,23 @@
 function binarySearch(arr, target) {
-  let baixo = 0;
-  let alto = arr.length - 1;
+    let leftIndex = 0; // indice esquerdo
+    let rightIndex = arr.lenght - 1; // indice direito ou final, tamanho do array, 5 por exemplo - 1 = 4 == 10.
 
-  while (baixo <= alto) {
-    const meio = Math.floor((baixo + alto) / 2); // Calcula o índice do meio
-    const chute = arr[meio]; // Valor no índice do meio
+    while (leftIndex <= rightIndex) { // enquanto indice esquerdo for menor ou igual que o indice final, faca
+        let middleIndex = Math.floor(leftIndex + rightIndex / 2); // procurando o meio com arredondamento.
 
-    if (chute === target) {
-      return meio; // Retorna o índice se o valor for encontrado
+        if (target === arr[middleIndex]) { // se algo eh igual ao meio entao retorna o meio, que seria 4 se fosse V.
+            return middleIndex;
+        } else if (middleIndex < target) { // se nao, verifica se o meio eh menor ou maior que o alvo.
+            rightIndex = middleIndex; // se for menor o meio vira o fim da array
+        }
+
+
     }
-    if (chute > target) {
-      alto = meio - 1; // Ajusta o limite superior
-    } else {
-    }
-      baixo = meio + 1; // Ajusta o limite inferior
-  }
 
-  return -1; // Retorna -1 se o valor não for encontrado
+
 }
 
-// Testes
-console.log(binarySearch([1, 3, 5, 7, 9], 3)); // Deve retornar 1
-console.log(binarySearch([1, 3, 5, 7, 9], -1)); // Deve retornar -1
-console.log(binarySearch([1, 3, 5, 7, 9], 9)); // Deve retornar 4
-console.log(binarySearch([], 3)); // Deve retornar -1
+
+console.log(binarySearch([-5, 2, 4, 6, 10], 10)) // 4
+console.log(binarySearch([-5, 2, 4, 6, 10], 6)) // 3 
+console.log(binarySearch([-5, 2, 4, 6, 10], 20))// -1
